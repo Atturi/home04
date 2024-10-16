@@ -1,6 +1,8 @@
 use std::collections::HashSet;
 use std::hash::{Hash, Hasher};
 
+pub mod OwningDeviceInfoProvider;
+
 /// Шаблон для умных устройств
 pub trait SmartDevice {
     fn info(&self) -> String;
@@ -247,35 +249,5 @@ impl<'a> BorrowingDeviceInfoProvider<'a> {
 impl<'a> DeviceInfoProvider for BorrowingDeviceInfoProvider<'a> {
     fn get_devices(&self) -> Vec<&'a dyn SmartDevice> {
         self.devices.clone()
-    }
-}
-
-pub struct OwningDeviceInfoProvider {
-    pub devices: Vec<Box<dyn SmartDevice>>,
-}
-
-impl OwningDeviceInfoProvider {
-    pub fn new() -> OwningDeviceInfoProvider {
-        OwningDeviceInfoProvider {
-            devices: Vec::new(),
-        }
-    }
-}
-
-impl Default for OwningDeviceInfoProvider {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl DeviceInfoProvider for OwningDeviceInfoProvider {
-    fn get_devices(&self) -> Vec<&dyn SmartDevice> {
-        let mut result_vec: Vec<&dyn SmartDevice> = Vec::new();
-
-        for device in self.devices.iter() {
-            result_vec.push(&(**device));
-        }
-
-        result_vec
     }
 }

@@ -1,5 +1,5 @@
 use SmartHouse::{
-    BorrowingDeviceInfoProvider, House, OwningDeviceInfoProvider, Room, SmartDevice, Socket,
+    BorrowingDeviceInfoProvider, House, OwningDeviceInfoProvider::OwningDeviceInfoProvider, Room, SmartDevice, Socket,
     Thermometer,
 };
 use std::collections::HashSet;
