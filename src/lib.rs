@@ -1,8 +1,9 @@
-use std::collections::HashSet;
-use std::hash::{Hash, Hasher};
-
 pub mod OwningDeviceInfoProvider;
 pub mod BorrowingDeviceInfoProvider;
+pub mod DeviceInfoProvider;
+
+use std::collections::HashSet;
+use std::hash::{Hash, Hasher};
 
 /// Шаблон для умных устройств
 pub trait SmartDevice {
@@ -191,7 +192,7 @@ impl House {
         self.rooms.insert(room);
     }
     /// Построение отчёта по источнику информации
-    pub fn create_report(&self, info_provider: &dyn DeviceInfoProvider) -> String {
+    pub fn create_report(&self, info_provider: &dyn DeviceInfoProvider::DeviceInfoProvider) -> String {
         let mut report = String::new();
 
         for device in info_provider.get_devices().iter() {
@@ -220,9 +221,4 @@ impl House {
 
         report
     }
-}
-
-/// Источник данных для построения отчёта
-pub trait DeviceInfoProvider {
-    fn get_devices(&self) -> Vec<&dyn SmartDevice>;
 }
