@@ -2,6 +2,7 @@ use std::collections::HashSet;
 use std::hash::{Hash, Hasher};
 
 pub mod OwningDeviceInfoProvider;
+pub mod BorrowingDeviceInfoProvider;
 
 /// Шаблон для умных устройств
 pub trait SmartDevice {
@@ -224,30 +225,4 @@ impl House {
 /// Источник данных для построения отчёта
 pub trait DeviceInfoProvider {
     fn get_devices(&self) -> Vec<&dyn SmartDevice>;
-}
-
-/// Источник данных для построения отчёта(заимствующий)
-pub struct BorrowingDeviceInfoProvider<'a> {
-    /// Устройства, по которым строится отчёт
-    pub devices: Vec<&'a dyn SmartDevice>,
-}
-
-impl<'a> Default for BorrowingDeviceInfoProvider<'a> {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-impl<'a> BorrowingDeviceInfoProvider<'a> {
-    pub fn new() -> BorrowingDeviceInfoProvider<'a> {
-        BorrowingDeviceInfoProvider {
-            devices: Vec::new(),
-        }
-    }
-}
-
-impl<'a> DeviceInfoProvider for BorrowingDeviceInfoProvider<'a> {
-    fn get_devices(&self) -> Vec<&'a dyn SmartDevice> {
-        self.devices.clone()
-    }
 }
