@@ -1,6 +1,7 @@
 pub mod OwningDeviceInfoProvider;
 pub mod BorrowingDeviceInfoProvider;
 pub mod DeviceInfoProvider;
+pub mod House;
 
 use std::collections::HashSet;
 use std::hash::{Hash, Hasher};
@@ -164,7 +165,7 @@ impl Hash for Room {
         self.name.hash(state);
     }
 }
-
+/*
 /// Умный дом
 pub struct House {
     /// Название
@@ -221,4 +222,4 @@ impl House {
 
         report
     }
-}
+}*/
