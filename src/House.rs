@@ -1,5 +1,5 @@
 use std::collections::HashSet;
-use super::{DeviceInfoProvider, Room};
+use super::{DeviceInfoProvider, Room::*};
 
 /// Умный дом
 pub struct House {
