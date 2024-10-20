@@ -1,4 +1,4 @@
-use super::SmartDevice;
+use super::SmartDevice::SmartDevice;
 
 /// Источник данных для построения отчёта
 pub trait DeviceInfoProvider {

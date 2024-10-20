@@ -1,4 +1,4 @@
-use super::SmartDevice;
+use super::SmartDevice::SmartDevice;
 
 /// Умная розетка
 #[derive(Clone)]

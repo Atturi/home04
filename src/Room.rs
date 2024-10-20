@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 use std::hash::{Hasher, Hash};
-use super::SmartDevice;
+use super::SmartDevice::SmartDevice;
 
 /// Помещение
 pub struct Room {
