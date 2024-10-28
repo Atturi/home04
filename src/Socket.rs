@@ -25,16 +25,21 @@ impl Socket {
         }
     }
     /// Получить текущую потребляемую мощность
-    fn _get_power_consumption(&self) -> u32 {
-        todo!();
+    pub fn get_power_consumption(&self) -> u32 {
+        self.power_consumption
     }
     /// Включить розетку
-    fn _switch_on(&mut self) {
-        todo!();
+    pub fn switch_on(&mut self) {
+        self.is_active = true;
     }
     /// Выключить розетку
-    fn _switch_off(&mut self) {
-        todo!();
+    pub fn switch_off(&mut self) {
+        self.is_active = false;
+    }
+    /// Получить текущее состояние розетки
+    pub fn is_active(&self) -> bool
+    {
+        self.is_active
     }
     /// Изменить помещение
     fn _set_room(&mut self, r: String) {
