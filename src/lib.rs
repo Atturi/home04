@@ -7,3 +7,5 @@ pub mod House;
 pub mod Room;
 pub mod Thermometer;
 pub mod Socket;
+
+mod unit_tests;
