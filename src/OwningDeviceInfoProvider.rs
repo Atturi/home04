@@ -1,4 +1,4 @@
-use super::{SmartDevice::SmartDevice, DeviceInfoProvider::DeviceInfoProvider};
+use super::{DeviceInfoProvider::DeviceInfoProvider, SmartDevice::SmartDevice};
 
 pub struct OwningDeviceInfoProvider {
     pub devices: Vec<Box<dyn SmartDevice>>,

@@ -1,5 +1,5 @@
-use std::collections::HashSet;
 use super::{DeviceInfoProvider, Room::*};
+use std::collections::HashSet;
 
 /// Умный дом
 pub struct House {
@@ -28,7 +28,10 @@ impl House {
         self.rooms.insert(room);
     }
     /// Построение отчёта по источнику информации
-    pub fn create_report(&self, info_provider: &dyn DeviceInfoProvider::DeviceInfoProvider) -> String {
+    pub fn create_report(
+        &self,
+        info_provider: &dyn DeviceInfoProvider::DeviceInfoProvider,
+    ) -> String {
         let mut report = String::new();
 
         for device in info_provider.get_devices().iter() {

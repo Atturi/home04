@@ -1,24 +1,22 @@
 #[allow(unused_imports)]
-use crate::Thermometer::Thermometer;
+use crate::House::House;
+#[allow(unused_imports)]
+use crate::Room::Room;
 #[allow(unused_imports)]
 use crate::SmartDevice::SmartDevice;
 #[allow(unused_imports)]
 use crate::Socket::Socket;
 #[allow(unused_imports)]
-use crate::Room::Room;
+use crate::Thermometer::Thermometer;
 #[allow(unused_imports)]
 use std::collections::HashSet;
-#[allow(unused_imports)]
-use crate::House::House;
 
 #[cfg(test)]
-pub mod test_thermometer
-{
-    use super::{Thermometer, SmartDevice};
+pub mod test_thermometer {
+    use super::{SmartDevice, Thermometer};
 
     #[test]
-    pub fn get_init_description()
-    {
+    pub fn get_init_description() {
         let thermometer = Thermometer::new("thermometer".to_string(), 19.3, "room".to_string());
 
         assert_eq!(19.3, thermometer.get_temperature());
@@ -27,9 +25,9 @@ pub mod test_thermometer
     }
 
     #[test]
-    pub fn set_room_name()
-    {
-        let mut thermometer = Thermometer::new("thermometer".to_string(), 19.3, "room1".to_string());
+    pub fn set_room_name() {
+        let mut thermometer =
+            Thermometer::new("thermometer".to_string(), 19.3, "room1".to_string());
 
         thermometer.set_room_name("room2".to_string());
 
@@ -38,13 +36,11 @@ pub mod test_thermometer
 }
 
 #[cfg(test)]
-pub mod test_socket
-{
-    use super::{Socket, SmartDevice};
+pub mod test_socket {
+    use super::{SmartDevice, Socket};
 
     #[test]
-    pub fn get_init_description()
-    {
+    pub fn get_init_description() {
         let socket = Socket::new("socket".to_string(), 3, true, "room".to_string());
 
         assert_eq!(3, socket.get_power_consumption());
@@ -54,8 +50,7 @@ pub mod test_socket
     }
 
     #[test]
-    pub fn switch_on_off()
-    {
+    pub fn switch_on_off() {
         let mut socket = Socket::new("socket".to_string(), 3, false, "room".to_string());
 
         socket.switch_on();
@@ -66,8 +61,7 @@ pub mod test_socket
     }
 
     #[test]
-    pub fn set_room_name()
-    {
+    pub fn set_room_name() {
         let mut socket = Socket::new("socket".to_string(), 3, false, "room1".to_string());
 
         socket.set_room_name("room2".to_string());
@@ -77,28 +71,37 @@ pub mod test_socket
 }
 
 #[cfg(test)]
-pub mod test_room
-{
-    use super::{Room, Socket, HashSet};
+pub mod test_room {
+    use super::{HashSet, Room, Socket};
 
     #[test]
-    pub fn eq()
-    {
-        let room1 = Room{name: "room_name".to_string(), devices: HashSet::new()};
-        let room2 = Room{name: "room_name".to_string(), devices: HashSet::new()};
-        let room3 = Room{name: "second_room_name".to_string(), devices: HashSet::new()};
+    pub fn eq() {
+        let room1 = Room {
+            name: "room_name".to_string(),
+            devices: HashSet::new(),
+        };
+        let room2 = Room {
+            name: "room_name".to_string(),
+            devices: HashSet::new(),
+        };
+        let room3 = Room {
+            name: "second_room_name".to_string(),
+            devices: HashSet::new(),
+        };
 
         assert_eq!(true, room1.eq(&room2));
         assert_eq!(false, room1.eq(&room3));
     }
 
     #[test]
-    pub fn add_device_get_devices()
-    {
+    pub fn add_device_get_devices() {
         let mut socket1 = Socket::new("socket1".to_string(), 0, false, "".to_string());
         let mut socket2 = Socket::new("socket2".to_string(), 1, true, "".to_string());
 
-        let mut room_socket = Room{name: "room_socket".to_string(), devices: HashSet::new()};
+        let mut room_socket = Room {
+            name: "room_socket".to_string(),
+            devices: HashSet::new(),
+        };
 
         room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
         room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
@@ -109,25 +112,31 @@ pub mod test_room
 }
 
 #[cfg(test)]
-pub mod test_house
-{
-    use super::{House, Room, HashSet};
+pub mod test_house {
+    use super::{HashSet, House, Room};
 
     #[test]
-    pub fn get_init_description()
-    {
+    pub fn get_init_description() {
         let house = House::new("house1".to_string());
 
         assert_eq!("house1".to_string(), house.name);
     }
 
     #[test]
-    pub fn add_room_get_rooms()
-    {
+    pub fn add_room_get_rooms() {
         let mut house = House::new("house".to_string());
-        let room1 = Room{name: "room1".to_string(), devices: HashSet::new()};
-        let room2 = Room{name: "room2".to_string(), devices: HashSet::new()};
-        let room3 = Room{name: "room2".to_string(), devices: HashSet::new()};
+        let room1 = Room {
+            name: "room1".to_string(),
+            devices: HashSet::new(),
+        };
+        let room2 = Room {
+            name: "room2".to_string(),
+            devices: HashSet::new(),
+        };
+        let room3 = Room {
+            name: "room2".to_string(),
+            devices: HashSet::new(),
+        };
 
         assert_eq!(0, house.get_rooms().len());
 
@@ -138,10 +147,3 @@ pub mod test_house
         assert_eq!(2, house.get_rooms().len());
     }
 }
-
-
-
-
-
-
-

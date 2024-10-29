@@ -37,8 +37,7 @@ impl Socket {
         self.is_active = false;
     }
     /// Получить текущее состояние розетки
-    pub fn is_active(&self) -> bool
-    {
+    pub fn is_active(&self) -> bool {
         self.is_active
     }
     /// Изменить помещение
