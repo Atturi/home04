@@ -8,6 +8,8 @@ use crate::Socket::Socket;
 use crate::Room::Room;
 #[allow(unused_imports)]
 use std::collections::HashSet;
+#[allow(unused_imports)]
+use crate::House::House;
 
 #[cfg(test)]
 pub mod test_thermometer
@@ -106,7 +108,36 @@ pub mod test_room
     }
 }
 
+#[cfg(test)]
+pub mod test_house
+{
+    use super::{House, Room, HashSet};
 
+    #[test]
+    pub fn get_init_description()
+    {
+        let house = House::new("house1".to_string());
+
+        assert_eq!("house1".to_string(), house.name);
+    }
+
+    #[test]
+    pub fn add_room_get_rooms()
+    {
+        let mut house = House::new("house".to_string());
+        let room1 = Room{name: "room1".to_string(), devices: HashSet::new()};
+        let room2 = Room{name: "room2".to_string(), devices: HashSet::new()};
+        let room3 = Room{name: "room2".to_string(), devices: HashSet::new()};
+
+        assert_eq!(0, house.get_rooms().len());
+
+        house.add_room(room1);
+        house.add_room(room2);
+        house.add_room(room3);
+
+        assert_eq!(2, house.get_rooms().len());
+    }
+}
 
 
 
