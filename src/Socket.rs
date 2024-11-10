@@ -11,12 +11,12 @@ pub struct Socket {
     /// Состояние(true - включена)
     is_active: bool,
     /// Помещение, в котором находится устройство
-    room: String,
+    room: Option<String>,
 }
 
 impl Socket {
     /// Создание розетки
-    pub fn new(info: String, power_consumption: u32, is_active: bool, room: String) -> Socket {
+    pub fn new(info: String, power_consumption: u32, is_active: bool, room: Option<String>) -> Socket {
         Socket {
             info,
             power_consumption,
@@ -42,7 +42,7 @@ impl Socket {
     }
     /// Изменить помещение
     fn _set_room(&mut self, r: String) {
-        self.room = r;
+        self.room = Some(r);
     }
 }
 
@@ -51,11 +51,11 @@ impl SmartDevice for Socket {
         self.info.clone()
     }
 
-    fn get_room_name(&self) -> String {
+    fn get_room_name(&self) -> Option<String> {
         self.room.clone()
     }
 
     fn set_room_name(&mut self, name: String) {
-        self.room = name;
+        self.room = Some(name);
     }
 }

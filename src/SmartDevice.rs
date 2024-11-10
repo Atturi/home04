@@ -3,7 +3,7 @@ use std::hash::{Hash, Hasher};
 /// Шаблон для умных устройств
 pub trait SmartDevice {
     fn info(&self) -> String;
-    fn get_room_name(&self) -> String;
+    fn get_room_name(&self) -> Option<String>;
     fn set_room_name(&mut self, name: String);
 }
 

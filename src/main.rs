@@ -5,8 +5,8 @@ use SmartHouse::{
 };
 
 fn main() {
-    let mut socket1 = Socket::new(String::from("socket1"), 0, false, "".to_string());
-    let mut socket2 = Socket::new(String::from("socket2"), 1, true, "".to_string());
+    let mut socket1 = Socket::new(String::from("socket1"), 0, false, None);
+    let mut socket2 = Socket::new(String::from("socket2"), 1, true, None);
 
     let mut room_socket = Room {
         name: "room_socket".to_string(),
@@ -23,7 +23,7 @@ fn main() {
     }
 
     let mut thermometer1 =
-        Thermometer::new("thermometer1".to_string(), -11.3_f32, "garden".to_string());
+        Thermometer::new("thermometer1".to_string(), -11.3_f32, Some("garden".to_string()));
 
     let mut room_thermometer = Room {
         name: "room_thermometer".to_string(),
@@ -62,9 +62,9 @@ fn main() {
         "socket3".to_string(),
         4,
         true,
-        "not_existsting_room".to_string(),
+        Some("not_existsting_room".to_string()),
     );
-    let socket4 = Socket::new("socket4".to_string(), 5, true, "room_socket".to_string());
+    let socket4 = Socket::new("socket4".to_string(), 5, true, Some("room_socket".to_string()));
 
     odip.devices.push(Box::new(socket1));
     odip.devices.push(Box::new(socket3));

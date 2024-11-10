@@ -36,7 +36,10 @@ impl House {
 
         for device in info_provider.get_devices().iter() {
             let device_result: String = match self.rooms.get(&Room {
-                name: device.get_room_name(),
+                name: match device.get_room_name(){
+                    Some(n) => n,
+                    None => "".to_string()
+                },
                 devices: HashSet::new(),
             }) {
                 Some(room) => {
@@ -48,11 +51,17 @@ impl House {
                         None => format!(
                             "Ошибка! Устройство {} не найдено в помещении {}\n",
                             (*device).info(),
-                            (*device).get_room_name()
+                            match (*device).get_room_name(){
+                                Some(r) => r,
+                                None => "NULL".to_string()
+                            }
                         ),
                     }
                 }
-                None => format!("Ошибка! Помещение {} не найдено\n", device.get_room_name()),
+                None => format!("Ошибка! Помещение {} не найдено\n", match device.get_room_name(){
+                    Some(r) => r,
+                    None => "NULL".to_string()
+                }),
             };
 
             report.push_str(&device_result);

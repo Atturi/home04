@@ -9,12 +9,12 @@ pub struct Thermometer {
     /// Температура
     temperature: f32,
     /// Помещение, в котором находится термометр
-    room: String,
+    room: Option<String>,
 }
 
 impl Thermometer {
     /// Создание термометра
-    pub fn new(info: String, temperature: f32, room: String) -> Thermometer {
+    pub fn new(info: String, temperature: f32, room: Option<String>) -> Thermometer {
         Thermometer {
             info,
             temperature,
@@ -32,11 +32,11 @@ impl SmartDevice for Thermometer {
         self.info.clone()
     }
 
-    fn get_room_name(&self) -> String {
+    fn get_room_name(&self) -> Option<String> {
         self.room.clone()
     }
 
     fn set_room_name(&mut self, name: String) {
-        self.room = name;
+        self.room = Some(name);
     }
 }

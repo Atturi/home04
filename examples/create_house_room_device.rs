@@ -5,7 +5,7 @@ use SmartHouse::Socket::Socket;
 
 fn main() {
     let mut house = House::new("house".to_string());
-    let mut socket = Socket::new("socket".to_string(), 1, true, "".to_string());
+    let mut socket = Socket::new("socket".to_string(), 1, true, None);
     let mut room = Room {
         name: "room".to_string(),
         devices: HashSet::new(),

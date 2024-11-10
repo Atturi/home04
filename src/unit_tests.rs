@@ -17,21 +17,21 @@ pub mod test_thermometer {
 
     #[test]
     pub fn get_init_description() {
-        let thermometer = Thermometer::new("thermometer".to_string(), 19.3, "room".to_string());
+        let thermometer = Thermometer::new("thermometer".to_string(), 19.3, Some("room".to_string()));
 
         assert_eq!(19.3, thermometer.get_temperature());
         assert_eq!("thermometer".to_string(), thermometer.info());
-        assert_eq!("room".to_string(), thermometer.get_room_name());
+        assert_eq!(Some("room".to_string()), thermometer.get_room_name());
     }
 
     #[test]
     pub fn set_room_name() {
         let mut thermometer =
-            Thermometer::new("thermometer".to_string(), 19.3, "room1".to_string());
+            Thermometer::new("thermometer".to_string(), 19.3, Some("room1".to_string()));
 
         thermometer.set_room_name("room2".to_string());
 
-        assert_eq!("room2".to_string(), thermometer.get_room_name());
+        assert_eq!(Some("room2".to_string()), thermometer.get_room_name());
     }
 }
 
@@ -41,17 +41,17 @@ pub mod test_socket {
 
     #[test]
     pub fn get_init_description() {
-        let socket = Socket::new("socket".to_string(), 3, true, "room".to_string());
+        let socket = Socket::new("socket".to_string(), 3, true, Some("room".to_string()));
 
         assert_eq!(3, socket.get_power_consumption());
         assert_eq!(true, socket.is_active());
         assert_eq!("socket".to_string(), socket.info());
-        assert_eq!("room".to_string(), socket.get_room_name());
+        assert_eq!(Some("room".to_string()), socket.get_room_name());
     }
 
     #[test]
     pub fn switch_on_off() {
-        let mut socket = Socket::new("socket".to_string(), 3, false, "room".to_string());
+        let mut socket = Socket::new("socket".to_string(), 3, false, Some("room".to_string()));
 
         socket.switch_on();
         assert_eq!(true, socket.is_active());
@@ -62,11 +62,11 @@ pub mod test_socket {
 
     #[test]
     pub fn set_room_name() {
-        let mut socket = Socket::new("socket".to_string(), 3, false, "room1".to_string());
+        let mut socket = Socket::new("socket".to_string(), 3, false, Some("room1".to_string()));
 
         socket.set_room_name("room2".to_string());
 
-        assert_eq!("room2".to_string(), socket.get_room_name());
+        assert_eq!(Some("room2".to_string()), socket.get_room_name());
     }
 }
 
@@ -95,8 +95,8 @@ pub mod test_room {
 
     #[test]
     pub fn add_device_get_devices() {
-        let mut socket1 = Socket::new("socket1".to_string(), 0, false, "".to_string());
-        let mut socket2 = Socket::new("socket2".to_string(), 1, true, "".to_string());
+        let mut socket1 = Socket::new("socket1".to_string(), 0, false, None);
+        let mut socket2 = Socket::new("socket2".to_string(), 1, true, None);
 
         let mut room_socket = Room {
             name: "room_socket".to_string(),
