@@ -1,4 +1,4 @@
-use super::SmartDevice::SmartDevice;
+use super::{SmartDevice::SmartDevice, errors::*};
 use std::collections::HashSet;
 use std::hash::{Hash, Hasher};
 
@@ -18,16 +18,20 @@ impl Room {
         result
     }
 
+    /// Добавить устройство в помещение
     pub fn add_device(
         &mut self,
         mut device: Box<dyn SmartDevice>,
         device_origin: &mut dyn SmartDevice,
-    ) {
+    ) -> Result<(), ErrorDeviceAlreadyExists> {
         if !self.devices.contains(&device) {
             device.set_room_name(self.name.clone());
             self.devices.insert(device);
             device_origin.set_room_name(self.name.clone());
+            return Ok(())
         }
+
+        Err(ErrorDeviceAlreadyExists{})
     }
 }
 

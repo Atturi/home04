@@ -13,9 +13,19 @@ fn main() {
         devices: HashSet::new(),
     };
 
-    room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
-    room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
-    room_socket.add_device(Box::new(socket2.clone()), &mut socket2);
+    match room_socket.add_device(Box::new(socket1.clone()), &mut socket1)
+    {
+        Ok(_) => (),
+        Err(e) => eprintln!("Error: {}", e)
+    }
+    match room_socket.add_device(Box::new(socket1.clone()), &mut socket1){
+        Ok(_) => (),
+        Err(e) => eprintln!("Error: {}", e)
+    }
+    match room_socket.add_device(Box::new(socket2.clone()), &mut socket2){
+        Ok(()) => (),
+        Err(e) => eprintln!("Error: {}", e)
+    }
 
     println!("\nУстройства помещения {}:", room_socket.name);
     for name in room_socket.get_devices().iter() {
@@ -30,7 +40,10 @@ fn main() {
         devices: HashSet::new(),
     };
 
-    room_thermometer.add_device(Box::new(thermometer1.clone()), &mut thermometer1);
+    match room_thermometer.add_device(Box::new(thermometer1.clone()), &mut thermometer1){
+        Ok(_) => (),
+        Err(e) => eprintln!("Error: {}", e)
+    }
 
     println!("\nУстройства помещения {}:", room_thermometer.name);
     for name in room_thermometer.get_devices().iter() {
@@ -39,8 +52,15 @@ fn main() {
 
     let mut house = House::new("house1".to_string());
 
-    house.add_room(room_socket);
-    house.add_room(room_thermometer);
+    match house.add_room(room_socket){
+        Ok(_) => (),
+        Err(e) => eprintln!("Error: {}", e)
+    }
+    
+    match house.add_room(room_thermometer){
+        Ok(_) => (),
+        Err(e) => eprintln!("Error: {}", e)
+    }
 
     println!("\nПомещения дома {}:", house.name);
     for room in house.get_rooms().iter() {

@@ -7,5 +7,6 @@ pub mod Room;
 pub mod SmartDevice;
 pub mod Socket;
 pub mod Thermometer;
+pub mod errors;
 
 mod unit_tests;

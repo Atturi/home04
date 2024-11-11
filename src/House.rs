@@ -1,4 +1,4 @@
-use super::{DeviceInfoProvider, Room::*};
+use super::{DeviceInfoProvider, Room::*, errors::*};
 use std::collections::HashSet;
 
 /// Умный дом
@@ -24,8 +24,14 @@ impl House {
         result
     }
     /// Добавить помещение
-    pub fn add_room(&mut self, room: Room) {
-        self.rooms.insert(room);
+    pub fn add_room(&mut self, room: Room) -> Result<(), ErrorRoomAlreadyExists> {
+        if !self.rooms.contains(&room)
+        {
+            self.rooms.insert(room);
+            return Ok(())
+        }
+
+        Err(ErrorRoomAlreadyExists{})
     }
     /// Построение отчёта по источнику информации
     pub fn create_report(
