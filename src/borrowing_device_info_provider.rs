@@ -1,4 +1,4 @@
-use super::{DeviceInfoProvider::DeviceInfoProvider, SmartDevice::SmartDevice};
+use super::{device_info_provider::DeviceInfoProvider, smart_device::SmartDevice};
 
 /// Источник данных для построения отчёта(заимствующий)
 pub struct BorrowingDeviceInfoProvider<'a> {

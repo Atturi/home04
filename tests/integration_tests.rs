@@ -1,11 +1,11 @@
 extern crate SmartHouse;
 use std::collections::HashSet;
-use SmartHouse::BorrowingDeviceInfoProvider::BorrowingDeviceInfoProvider;
-use SmartHouse::House::House;
-use SmartHouse::OwningDeviceInfoProvider::OwningDeviceInfoProvider;
-use SmartHouse::Room::Room;
-use SmartHouse::Socket::Socket;
-use SmartHouse::Thermometer::Thermometer;
+use SmartHouse::borrowing_device_info_provider::BorrowingDeviceInfoProvider;
+use SmartHouse::house::House;
+use SmartHouse::owning_device_info_provider::OwningDeviceInfoProvider;
+use SmartHouse::room::Room;
+use SmartHouse::socket::Socket;
+use SmartHouse::thermometer::Thermometer;
 
 #[test]
 fn test_test() {
@@ -17,24 +17,27 @@ fn test_test() {
         devices: HashSet::new(),
     };
 
-    room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
-    room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
-    room_socket.add_device(Box::new(socket2.clone()), &mut socket2);
+    let _ = room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
+    let _ = room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
+    let _ = room_socket.add_device(Box::new(socket2.clone()), &mut socket2);
 
-    let mut thermometer1 =
-        Thermometer::new("thermometer1".to_string(), -11.3_f32, Some("garden".to_string()));
+    let mut thermometer1 = Thermometer::new(
+        "thermometer1".to_string(),
+        -11.3_f32,
+        Some("garden".to_string()),
+    );
 
     let mut room_thermometer = Room {
         name: "room_thermometer".to_string(),
         devices: HashSet::new(),
     };
 
-    room_thermometer.add_device(Box::new(thermometer1.clone()), &mut thermometer1);
+    let _ = room_thermometer.add_device(Box::new(thermometer1.clone()), &mut thermometer1);
 
     let mut house = House::new("house1".to_string());
 
-    house.add_room(room_socket);
-    house.add_room(room_thermometer);
+    let _ = house.add_room(room_socket);
+    let _ = house.add_room(room_thermometer);
 
     let mut bdip = BorrowingDeviceInfoProvider::new();
     bdip.devices.push(&socket1);
@@ -54,7 +57,12 @@ fn test_test() {
         Some("not_existing_room".to_string()),
     );
 
-    let socket4 = Socket::new("socket4".to_string(), 5, true, Some("room_socket".to_string()));
+    let socket4 = Socket::new(
+        "socket4".to_string(),
+        5,
+        true,
+        Some("room_socket".to_string()),
+    );
 
     odip.devices.push(Box::new(socket1));
     odip.devices.push(Box::new(socket3));

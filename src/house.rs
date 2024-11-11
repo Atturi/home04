@@ -1,4 +1,4 @@
-use super::{DeviceInfoProvider, Room::*, errors::*};
+use super::{device_info_provider::DeviceInfoProvider, errors::*, room::*};
 use std::collections::HashSet;
 
 /// Умный дом
@@ -25,26 +25,22 @@ impl House {
     }
     /// Добавить помещение
     pub fn add_room(&mut self, room: Room) -> Result<(), ErrorRoomAlreadyExists> {
-        if !self.rooms.contains(&room)
-        {
+        if !self.rooms.contains(&room) {
             self.rooms.insert(room);
-            return Ok(())
+            return Ok(());
         }
 
-        Err(ErrorRoomAlreadyExists{})
+        Err(ErrorRoomAlreadyExists {})
     }
     /// Построение отчёта по источнику информации
-    pub fn create_report(
-        &self,
-        info_provider: &dyn DeviceInfoProvider::DeviceInfoProvider,
-    ) -> String {
+    pub fn create_report(&self, info_provider: &dyn DeviceInfoProvider) -> String {
         let mut report = String::new();
 
         for device in info_provider.get_devices().iter() {
             let device_result: String = match self.rooms.get(&Room {
-                name: match device.get_room_name(){
+                name: match device.get_room_name() {
                     Some(n) => n,
-                    None => "".to_string()
+                    None => "".to_string(),
                 },
                 devices: HashSet::new(),
             }) {
@@ -57,17 +53,20 @@ impl House {
                         None => format!(
                             "Ошибка! Устройство {} не найдено в помещении {}\n",
                             (*device).info(),
-                            match (*device).get_room_name(){
+                            match (*device).get_room_name() {
                                 Some(r) => r,
-                                None => "NULL".to_string()
+                                None => "NULL".to_string(),
                             }
                         ),
                     }
                 }
-                None => format!("Ошибка! Помещение {} не найдено\n", match device.get_room_name(){
-                    Some(r) => r,
-                    None => "NULL".to_string()
-                }),
+                None => format!(
+                    "Ошибка! Помещение {} не найдено\n",
+                    match device.get_room_name() {
+                        Some(r) => r,
+                        None => "NULL".to_string(),
+                    }
+                ),
             };
 
             report.push_str(&device_result);

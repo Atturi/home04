@@ -1,4 +1,4 @@
-use super::SmartDevice::SmartDevice;
+use super::smart_device::SmartDevice;
 
 /// Умный термометр
 #[derive(Clone)]

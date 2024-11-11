@@ -1,13 +1,13 @@
 #[allow(unused_imports)]
-use crate::House::House;
+use crate::house::House;
 #[allow(unused_imports)]
-use crate::Room::Room;
+use crate::room::Room;
 #[allow(unused_imports)]
-use crate::SmartDevice::SmartDevice;
+use crate::smart_device::SmartDevice;
 #[allow(unused_imports)]
-use crate::Socket::Socket;
+use crate::socket::Socket;
 #[allow(unused_imports)]
-use crate::Thermometer::Thermometer;
+use crate::thermometer::Thermometer;
 #[allow(unused_imports)]
 use std::collections::HashSet;
 
@@ -17,7 +17,8 @@ pub mod test_thermometer {
 
     #[test]
     pub fn get_init_description() {
-        let thermometer = Thermometer::new("thermometer".to_string(), 19.3, Some("room".to_string()));
+        let thermometer =
+            Thermometer::new("thermometer".to_string(), 19.3, Some("room".to_string()));
 
         assert_eq!(19.3, thermometer.get_temperature());
         assert_eq!("thermometer".to_string(), thermometer.info());
@@ -103,9 +104,9 @@ pub mod test_room {
             devices: HashSet::new(),
         };
 
-        room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
-        room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
-        room_socket.add_device(Box::new(socket2.clone()), &mut socket2);
+        let _ = room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
+        let _ = room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
+        let _ = room_socket.add_device(Box::new(socket2.clone()), &mut socket2);
 
         assert_eq!(2, room_socket.get_devices().len());
     }
@@ -140,9 +141,9 @@ pub mod test_house {
 
         assert_eq!(0, house.get_rooms().len());
 
-        house.add_room(room1);
-        house.add_room(room2);
-        house.add_room(room3);
+        let _ = house.add_room(room1);
+        let _ = house.add_room(room2);
+        let _ = house.add_room(room3);
 
         assert_eq!(2, house.get_rooms().len());
     }

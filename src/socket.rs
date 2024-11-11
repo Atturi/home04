@@ -1,4 +1,4 @@
-use super::SmartDevice::SmartDevice;
+use super::smart_device::SmartDevice;
 
 /// Умная розетка
 #[derive(Clone)]
@@ -16,7 +16,12 @@ pub struct Socket {
 
 impl Socket {
     /// Создание розетки
-    pub fn new(info: String, power_consumption: u32, is_active: bool, room: Option<String>) -> Socket {
+    pub fn new(
+        info: String,
+        power_consumption: u32,
+        is_active: bool,
+        room: Option<String>,
+    ) -> Socket {
         Socket {
             info,
             power_consumption,

@@ -1,4 +1,4 @@
-use super::{SmartDevice::SmartDevice, errors::*};
+use super::{errors::*, smart_device::SmartDevice};
 use std::collections::HashSet;
 use std::hash::{Hash, Hasher};
 
@@ -28,10 +28,10 @@ impl Room {
             device.set_room_name(self.name.clone());
             self.devices.insert(device);
             device_origin.set_room_name(self.name.clone());
-            return Ok(())
+            return Ok(());
         }
 
-        Err(ErrorDeviceAlreadyExists{})
+        Err(ErrorDeviceAlreadyExists {})
     }
 }
 
