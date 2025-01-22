@@ -7,7 +7,7 @@ impl Error for ErrorDeviceAlreadyExists {}
 
 impl fmt::Display for ErrorDeviceAlreadyExists {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Device already exists in this room")
+        write!(f, "Устройство с таким именем уже существует")
     }
 }
 
@@ -18,6 +18,6 @@ impl Error for ErrorRoomAlreadyExists {}
 
 impl fmt::Display for ErrorRoomAlreadyExists {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Room already exists in this house")
+        write!(f, "Помещение с таким именем уже существует")
     }
 }

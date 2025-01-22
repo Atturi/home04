@@ -1,3 +1,4 @@
+use colored::Colorize;
 use super::{device_info_provider::DeviceInfoProvider, errors::*, room::*};
 use std::collections::HashSet;
 
@@ -51,7 +52,8 @@ impl House {
                         //nm.devices.get(&device){
                         Some(dv) => format!("{} : {}\n", room.name, dv),
                         None => format!(
-                            "Ошибка! Устройство {} не найдено в помещении {}\n",
+                            "{} Устройство {} не найдено в помещении {}\n",
+                            "Ошибка!".red(),
                             (*device).info(),
                             match (*device).get_room_name() {
                                 Some(r) => r,
@@ -61,7 +63,8 @@ impl House {
                     }
                 }
                 None => format!(
-                    "Ошибка! Помещение {} не найдено\n",
+                    "{} Помещение {} не найдено\n",
+                    "Ошибка!".red(),
                     match device.get_room_name() {
                         Some(r) => r,
                         None => "NULL".to_string(),
