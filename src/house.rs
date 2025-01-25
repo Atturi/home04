@@ -1,13 +1,13 @@
 use colored::Colorize;
 use super::{device_info_provider::DeviceInfoProvider, errors::*, room::*};
-use std::collections::HashSet;
+use std::collections::{HashSet, HashMap};
 
 /// Умный дом
 pub struct House {
     /// Название
     pub name: String,
     /// Помещения
-    rooms: HashSet<Room>,
+    rooms: HashMap<String, Room>,
 }
 
 impl House {
@@ -15,19 +15,19 @@ impl House {
     pub fn new(name: String) -> Self {
         House {
             name,
-            rooms: HashSet::new(),
+            rooms: HashMap::new(),
         }
     }
     /// Получить список названий помещений
     pub fn get_rooms(&self) -> Vec<String> {
-        let result: Vec<String> = self.rooms.iter().map(|room| room.name.clone()).collect();
+        let result: Vec<String> = self.rooms.keys().map(|name| name.clone()).collect();
 
         result
     }
     /// Добавить помещение
     pub fn add_room(&mut self, room: Room) -> Result<(), ErrorRoomAlreadyExists> {
-        if !self.rooms.contains(&room) {
-            self.rooms.insert(room);
+        if !self.rooms.contains_key(&room.name) {
+            self.rooms.insert(room.name.clone(), room);
             return Ok(());
         }
 
@@ -36,18 +36,17 @@ impl House {
     /// Построение отчёта по источнику информации
     pub fn create_report(&self, info_provider: &dyn DeviceInfoProvider) -> String {
         let mut report = String::new();
-
+        let mut room_name: String;
+        
         for device in info_provider.get_devices().iter() {
-            let device_result: String = match self.rooms.get(&Room {
-                name: match device.get_room_name() {
-                    Some(n) => n,
-                    None => "".to_string(),
-                },
-                devices: HashSet::new(),
-            }) {
+            let device_result: String = match self.rooms.get(
+                match device.get_room_name(){
+                    Some(n) => {room_name = n; &room_name},
+                    None => {room_name = "".to_string(); &room_name}
+                }) {
                 Some(room) => {
                     let dvs: HashSet<String> =
-                        HashSet::from_iter(room.devices.iter().map(|d| d.info()));
+                        HashSet::from_iter(room.devices.iter().map(|(device_name, _device_object)| device_name.clone()));
                     match dvs.get(&(*device).info()) {
                         //nm.devices.get(&device){
                         Some(dv) => format!("{} : {}\n", room.name, dv),

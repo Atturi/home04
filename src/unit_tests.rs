@@ -9,7 +9,7 @@ use crate::socket::Socket;
 #[allow(unused_imports)]
 use crate::thermometer::Thermometer;
 #[allow(unused_imports)]
-use std::collections::HashSet;
+use std::collections::HashMap;
 
 #[cfg(test)]
 pub mod test_thermometer {
@@ -73,21 +73,21 @@ pub mod test_socket {
 
 #[cfg(test)]
 pub mod test_room {
-    use super::{HashSet, Room, Socket};
+    use super::{HashMap, Room, Socket};
 
     #[test]
     pub fn eq() {
         let room1 = Room {
             name: "room_name".to_string(),
-            devices: HashSet::new(),
+            devices: HashMap::new(),
         };
         let room2 = Room {
             name: "room_name".to_string(),
-            devices: HashSet::new(),
+            devices: HashMap::new(),
         };
         let room3 = Room {
             name: "second_room_name".to_string(),
-            devices: HashSet::new(),
+            devices: HashMap::new(),
         };
 
         assert_eq!(true, room1.eq(&room2));
@@ -101,7 +101,7 @@ pub mod test_room {
 
         let mut room_socket = Room {
             name: "room_socket".to_string(),
-            devices: HashSet::new(),
+            devices: HashMap::new(),
         };
 
         let _ = room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
@@ -114,7 +114,7 @@ pub mod test_room {
 
 #[cfg(test)]
 pub mod test_house {
-    use super::{HashSet, House, Room};
+    use super::{HashMap, House, Room};
 
     #[test]
     pub fn get_init_description() {
@@ -128,15 +128,15 @@ pub mod test_house {
         let mut house = House::new("house".to_string());
         let room1 = Room {
             name: "room1".to_string(),
-            devices: HashSet::new(),
+            devices: HashMap::new(),
         };
         let room2 = Room {
             name: "room2".to_string(),
-            devices: HashSet::new(),
+            devices: HashMap::new(),
         };
         let room3 = Room {
             name: "room2".to_string(),
-            devices: HashSet::new(),
+            devices: HashMap::new(),
         };
 
         assert_eq!(0, house.get_rooms().len());

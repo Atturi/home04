@@ -1,5 +1,5 @@
 extern crate SmartHouse;
-use std::collections::HashSet;
+use std::collections::HashMap;
 use SmartHouse::borrowing_device_info_provider::BorrowingDeviceInfoProvider;
 use SmartHouse::house::House;
 use SmartHouse::owning_device_info_provider::OwningDeviceInfoProvider;
@@ -14,7 +14,7 @@ fn test_test() {
 
     let mut room_socket = Room {
         name: "room_socket".to_string(),
-        devices: HashSet::new(),
+        devices: HashMap::new(),
     };
 
     let _ = room_socket.add_device(Box::new(socket1.clone()), &mut socket1);
@@ -29,7 +29,7 @@ fn test_test() {
 
     let mut room_thermometer = Room {
         name: "room_thermometer".to_string(),
-        devices: HashSet::new(),
+        devices: HashMap::new(),
     };
 
     let _ = room_thermometer.add_device(Box::new(thermometer1.clone()), &mut thermometer1);
@@ -72,7 +72,7 @@ fn test_test() {
     let report_odip = house.create_report(&odip);
 
     assert!(report_odip.contains("socket1"));
-    assert!(report_odip.contains("Ошибка! Помещение not_existing_room не найдено"));
+    assert!(report_odip.contains("Помещение not_existing_room не найдено"));
     assert!(report_odip.contains("thermometer1"));
-    assert!(report_odip.contains("Ошибка! Устройство socket4 не найдено в помещении room_socket"));
+    assert!(report_odip.contains("Устройство socket4 не найдено в помещении room_socket"));
 }

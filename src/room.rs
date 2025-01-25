@@ -1,5 +1,5 @@
 use super::{errors::*, smart_device::SmartDevice};
-use std::collections::HashSet;
+use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
 
 /// Помещение
@@ -7,13 +7,13 @@ pub struct Room {
     /// Название помещения
     pub name: String,
     /// Множество устройств в помещении
-    pub devices: HashSet<Box<dyn SmartDevice>>,
+    pub devices: HashMap<String, Box<dyn SmartDevice>>,
 }
 
 impl Room {
     /// Получить список устройств в помещении
     pub fn get_devices(&self) -> Vec<String> {
-        let result: Vec<String> = self.devices.iter().map(|x| x.info().clone()).collect();
+        let result: Vec<String> = self.devices.keys().map(|x| x.clone()).collect();
 
         result
     }
@@ -24,9 +24,9 @@ impl Room {
         mut device: Box<dyn SmartDevice>,
         device_origin: &mut dyn SmartDevice,
     ) -> Result<(), ErrorDeviceAlreadyExists> {
-        if !self.devices.contains(&device) {
+        if !self.devices.contains_key(&device.info()) {
             device.set_room_name(self.name.clone());
-            self.devices.insert(device);
+            self.devices.insert(device.info().clone(), device);
             device_origin.set_room_name(self.name.clone());
             return Ok(());
         }

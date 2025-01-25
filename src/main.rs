@@ -1,6 +1,6 @@
 use colored::Colorize;
 
-use std::collections::HashSet;
+use std::collections::HashMap;
 use SmartHouse::{
     borrowing_device_info_provider::BorrowingDeviceInfoProvider, house::*,
     owning_device_info_provider::OwningDeviceInfoProvider, room::*, socket::*, thermometer::*,
@@ -33,7 +33,7 @@ fn main() {
 
     let mut room_socket = Room {
         name: "room_socket".to_string(),
-        devices: HashSet::new(),
+        devices: HashMap::new(),
     };
 
     match room_socket.add_device(Box::new(socket1.clone()), &mut socket1) {
@@ -59,7 +59,7 @@ fn main() {
 
     let mut room_thermometer = Room {
         name: "room_thermometer".to_string(),
-        devices: HashSet::new(),
+        devices: HashMap::new(),
     };
 
     match room_thermometer.add_device(Box::new(thermometer1.clone()), &mut thermometer1) {

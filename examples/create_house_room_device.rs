@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::HashMap;
 use SmartHouse::house::House;
 use SmartHouse::room::Room;
 use SmartHouse::socket::Socket;
@@ -8,7 +8,7 @@ fn main() {
     let mut socket = Socket::new("socket".to_string(), 1, true, None);
     let mut room = Room {
         name: "room".to_string(),
-        devices: HashSet::new(),
+        devices: HashMap::new(),
     };
 
     let _ = room.add_device(Box::new(socket.clone()), &mut socket);
