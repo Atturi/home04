@@ -33,6 +33,16 @@ impl House {
 
         Err(ErrorRoomAlreadyExists {})
     }
+
+    /// Удалить помещение
+    pub fn remove_room(&mut self, room_name: &String) -> Result<(), ErrorRoomNotExists>
+    {
+        match self.rooms.remove(room_name){
+            Some(_) => Ok(()),
+            None => Err(ErrorRoomNotExists {})
+        }
+    }
+    
     /// Построение отчёта по источнику информации
     pub fn create_report(&self, info_provider: &dyn DeviceInfoProvider) -> String {
         let mut report = String::new();

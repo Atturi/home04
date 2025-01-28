@@ -4,6 +4,7 @@ use std::collections::HashMap;
 use SmartHouse::{
     borrowing_device_info_provider::BorrowingDeviceInfoProvider, house::*,
     owning_device_info_provider::OwningDeviceInfoProvider, room::*, socket::*, thermometer::*,
+    smart_device::*
 };
 
 fn show_room_devices(room: &Room)
@@ -69,6 +70,10 @@ fn main() {
 
     show_room_devices(&room_thermometer);
 
+    let _ = room_thermometer.remove_device(&thermometer1.info());
+
+    show_room_devices(&room_thermometer);
+
     let mut house = House::new("house1".to_string());
 
     match house.add_room(room_socket) {
@@ -80,6 +85,10 @@ fn main() {
         Ok(_) => (),
         Err(e) => eprintln!("Error: {}", e),
     }
+
+    let room_for_delete = "room_thermometer".to_string();
+
+    let _ = house.remove_room(&room_for_delete);
 
     show_house_rooms(&house);
     

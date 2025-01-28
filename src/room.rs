@@ -33,6 +33,15 @@ impl Room {
 
         Err(ErrorDeviceAlreadyExists {})
     }
+
+    /// Удалить устройство из помещения
+    pub fn remove_device(&mut self, device_name: &String) -> Result<(), ErrorDeviceNotExists>
+    {
+         match self.devices.remove(device_name){
+            Some(_) => Ok(()),
+            None => Err(ErrorDeviceNotExists{})
+         }
+    }
 }
 
 impl Eq for Room {}
