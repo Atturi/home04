@@ -3,32 +3,29 @@ use colored::Colorize;
 use std::collections::HashMap;
 use SmartHouse::{
     borrowing_device_info_provider::BorrowingDeviceInfoProvider, house::*,
-    owning_device_info_provider::OwningDeviceInfoProvider, room::*, socket::*, thermometer::*,
-    smart_device::*
+    owning_device_info_provider::OwningDeviceInfoProvider, room::*, smart_device::*, socket::*,
+    thermometer::*,
 };
 
-fn show_room_devices(room: &Room)
-{
+fn show_room_devices(room: &Room) {
     println!("");
     println!("{} {}:", "Устройства помещения".yellow(), room.name);
-    
+
     for name in room.get_devices().iter() {
         println!("{name}");
     }
 }
 
-fn show_house_rooms(house: &House)
-{
+fn show_house_rooms(house: &House) {
     println!("");
     println!("{} {}:", "Помещения дома".yellow(), house.name);
 
-    for name in house.get_rooms().iter(){
+    for name in house.get_rooms().iter() {
         println!("{name}");
     }
 }
 
 fn main() {
-    
     let mut socket1 = Socket::new(String::from("socket1"), 0, false, None);
     let mut socket2 = Socket::new(String::from("socket2"), 1, true, None);
 
@@ -91,7 +88,7 @@ fn main() {
     let _ = house.remove_room(&room_for_delete);
 
     show_house_rooms(&house);
-    
+
     let mut bdip = BorrowingDeviceInfoProvider::new();
     bdip.devices.push(&socket1);
     bdip.devices.push(&socket2);

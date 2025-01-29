@@ -23,23 +23,23 @@ impl fmt::Display for ErrorRoomAlreadyExists {
 }
 
 #[derive(Debug)]
-pub struct ErrorDeviceNotExists{}
+pub struct ErrorDeviceNotExists {}
 
-impl Error for ErrorDeviceNotExists{}
+impl Error for ErrorDeviceNotExists {}
 
-impl fmt::Display for ErrorDeviceNotExists{
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result{
+impl fmt::Display for ErrorDeviceNotExists {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Устройство с таким именем не найдено")
     }
 }
 
 #[derive(Debug)]
-pub struct ErrorRoomNotExists{}
+pub struct ErrorRoomNotExists {}
 
-impl Error for ErrorRoomNotExists{}
+impl Error for ErrorRoomNotExists {}
 
-impl fmt::Display for ErrorRoomNotExists{
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result{
+impl fmt::Display for ErrorRoomNotExists {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Помещение с таким именем не найдено")
     }
 }

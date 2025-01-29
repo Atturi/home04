@@ -1,6 +1,6 @@
-use colored::Colorize;
 use super::{device_info_provider::DeviceInfoProvider, errors::*, room::*};
-use std::collections::{HashSet, HashMap};
+use colored::Colorize;
+use std::collections::{HashMap, HashSet};
 
 /// Умный дом
 pub struct House {
@@ -35,28 +35,33 @@ impl House {
     }
 
     /// Удалить помещение
-    pub fn remove_room(&mut self, room_name: &String) -> Result<(), ErrorRoomNotExists>
-    {
-        match self.rooms.remove(room_name){
+    pub fn remove_room(&mut self, room_name: &String) -> Result<(), ErrorRoomNotExists> {
+        match self.rooms.remove(room_name) {
             Some(_) => Ok(()),
-            None => Err(ErrorRoomNotExists {})
+            None => Err(ErrorRoomNotExists {}),
         }
     }
-    
+
     /// Построение отчёта по источнику информации
     pub fn create_report(&self, info_provider: &dyn DeviceInfoProvider) -> String {
         let mut report = String::new();
         let mut room_name: String;
-        
+
         for device in info_provider.get_devices().iter() {
-            let device_result: String = match self.rooms.get(
-                match device.get_room_name(){
-                    Some(n) => {room_name = n; &room_name},
-                    None => {room_name = "".to_string(); &room_name}
-                }) {
+            let device_result: String = match self.rooms.get(match device.get_room_name() {
+                Some(n) => {
+                    room_name = n;
+                    &room_name
+                }
+                None => {
+                    room_name = "".to_string();
+                    &room_name
+                }
+            }) {
                 Some(room) => {
-                    let dvs: HashSet<String> =
-                        HashSet::from_iter(room.devices.iter().map(|(device_name, _device_object)| device_name.clone()));
+                    let dvs: HashSet<String> = HashSet::from_iter(
+                        room.devices.iter().map(|device_name| device_name.0.clone()),
+                    );
                     match dvs.get(&(*device).info()) {
                         //nm.devices.get(&device){
                         Some(dv) => format!("{} : {}\n", room.name, dv),

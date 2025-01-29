@@ -73,7 +73,7 @@ pub mod test_socket {
 
 #[cfg(test)]
 pub mod test_room {
-    use super::{HashMap, Room, Socket, SmartDevice};
+    use super::{HashMap, Room, SmartDevice, Socket};
 
     #[test]
     pub fn eq() {
@@ -112,14 +112,17 @@ pub mod test_room {
     }
 
     #[test]
-    pub fn remove_device(){
+    pub fn remove_device() {
         let mut socket1 = Socket::new("socket1".to_string(), 0, false, None);
         let mut socket2 = Socket::new("socket2".to_string(), 2, true, None);
 
-        let mut room = Room{name: "room".to_string(), devices: HashMap::new()};
+        let mut room = Room {
+            name: "room".to_string(),
+            devices: HashMap::new(),
+        };
 
-        let _  = room.add_device(Box::new(socket1.clone()), &mut socket1);
-        let _  = room.add_device(Box::new(socket2.clone()), &mut socket2);
+        let _ = room.add_device(Box::new(socket1.clone()), &mut socket1);
+        let _ = room.add_device(Box::new(socket2.clone()), &mut socket2);
 
         let _ = room.remove_device(&socket1.info());
 
@@ -170,15 +173,21 @@ pub mod test_house {
     }
 
     #[test]
-    pub fn remove_room(){
+    pub fn remove_room() {
         let mut house = House::new("house".to_string());
 
-        let room1 = Room{name: "room1".to_string(), devices: HashMap::new()};
-        let room2 = Room{name: "room2".to_string(), devices: HashMap::new()};
+        let room1 = Room {
+            name: "room1".to_string(),
+            devices: HashMap::new(),
+        };
+        let room2 = Room {
+            name: "room2".to_string(),
+            devices: HashMap::new(),
+        };
 
         let _ = house.add_room(room1);
         let _ = house.add_room(room2);
-        
+
         let room_name = "room1".to_string();
 
         let _ = house.remove_room(&room_name);
